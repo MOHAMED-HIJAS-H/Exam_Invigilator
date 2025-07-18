@@ -1,0 +1,19 @@
+﻿@model Exam_Invigilator.Domain.Models.Invigilator
+
+<h2>Register New Invigilator</h2>
+<form asp-action="Register" method="post">
+    <input asp-for="Name" class="form-control mb-2" placeholder="Name" />
+    <input asp-for="Contact" class="form-control mb-2" placeholder="Contact" />
+
+    <label>Availability</label><br />
+    @foreach (var day in Enum.GetValues(typeof(DayOfWeek)))
+    {
+        <label>
+            <input type="checkbox" name="Availabilities" value="@day" /> @day
+        </label>
+    
+        <br />
+    }
+
+    <button class="btn btn-success">Submit</button>
+</form>
