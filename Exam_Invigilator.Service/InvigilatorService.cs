@@ -24,50 +24,7 @@ namespace Exam_Invigilator.Service
             await _context.SaveChangesAsync();
         }
 
-        //public async Task<List<Allocation>> GenerateDraftScheduleAsync()
-        //{
-        //    // 1️⃣ Delete old draft allocations before creating new ones
-        //    var oldDrafts = await _context.Allocations.Where(a => !a.IsApproved).ToListAsync();
-        //    if (oldDrafts.Any())
-        //    {
-        //        _context.Allocations.RemoveRange(oldDrafts);
-        //        await _context.SaveChangesAsync();
-        //    }
-
-        //    var venues = await _context.Venues.Take(20).ToListAsync();
-        //    var invigilators = await _context.Invigilators.Include(i => i.Availabilities).ToListAsync();
-
-        //    var draft = new List<Allocation>();
-
-        //    foreach (var day in Enum.GetValues(typeof(DayOfWeek)).Cast<DayOfWeek>())
-        //    {
-        //        var usedInvigilators = new HashSet<int>();
-
-        //        foreach (var venue in venues)
-        //        {
-        //            var availableInv = invigilators
-        //                .FirstOrDefault(i => i.Availabilities.Any(a => a.Day == day) &&
-        //                                     !usedInvigilators.Contains(i.Id));
-
-        //            if (availableInv != null)
-        //            {
-        //                draft.Add(new Allocation
-        //                {
-        //                    InvigilatorId = availableInv.Id,
-        //                    VenueId = venue.Id,
-        //                    Day = day,
-        //                    IsApproved = false
-        //                });
-
-        //                usedInvigilators.Add(availableInv.Id);
-        //            }
-        //        }
-        //    }
-
-        //    await _context.Allocations.AddRangeAsync(draft);
-        //    await _context.SaveChangesAsync();
-        //    return draft;
-        //}
+ 
 
         public async Task<List<Allocation>> GenerateDraftScheduleAsync()
         {

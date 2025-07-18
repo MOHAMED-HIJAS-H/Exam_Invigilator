@@ -1,4 +1,5 @@
 using Exam_Invigilator.Domain.Interfaces;
+using Exam_Invigilator.Domain.Models;
 using Exam_Invigilator.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
@@ -23,16 +24,32 @@ namespace Exam_Invigilator.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(string email, string contact)
         {
-            var inv = await _invigilatorService.FindByEmailAndContactAsync(email, contact);
-            if (inv != null)
+            var invigilator = await _invigilatorService.FindByEmailAndContactAsync(email, contact);
+            if (invigilator != null)
             {
-                HttpContext.Session.SetInt32("InvigilatorId", inv.Id);
+                HttpContext.Session.SetInt32("InvigilatorId", invigilator.Id);
+                HttpContext.Session.SetString("InvigilatorName", invigilator.Name);
                 return RedirectToAction("MySchedule");
             }
 
             ViewBag.Error = "Invalid Credentials";
             return View();
         }
+
+        [HttpGet]
+        public IActionResult Register()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Register(Invigilator invigilator, List<DayOfWeek> availabilities)
+        {
+            invigilator.Availabilities = availabilities.Select(day => new Availability { Day = day }).ToList();
+            await _invigilatorService.AddInvigilatorAsync(invigilator);
+            return RedirectToAction("Login");
+        }
+
 
         [HttpGet]
         public async Task<IActionResult> MySchedule()
