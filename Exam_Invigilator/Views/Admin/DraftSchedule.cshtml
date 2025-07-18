@@ -1,0 +1,45 @@
+﻿@model List<Exam_Invigilator.Domain.Models.Allocation>
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Draft Schedule</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body class="p-4">
+    <div class="container">
+        <h2 class="mb-4">Draft Schedule</h2>
+        <form asp-action="ApproveSchedule" method="post">
+            <table class="table table-bordered table-striped">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Day</th>
+                        <th>Venue</th>
+                        <th>Hall</th>
+                        <th>Invigilator</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var a in Model)
+                    {
+                        <tr>
+                            <td>@a.Day</td>
+                            <td>@a.Venue?.Name</td>
+                            <td>@a.Venue?.HallNumber</td>
+                            <td>@a.Invigilator?.Name</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <button type="submit" class="btn btn-success">✅ Approve Schedule</button>
+        </form>
+        <a class="btn btn-secondary mt-3" asp-action="Index">Back to Dashboard</a>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

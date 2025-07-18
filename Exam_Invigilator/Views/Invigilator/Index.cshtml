@@ -1,0 +1,11 @@
+﻿@model List<Exam_Invigilator.Domain.Models.Invigilator>
+@{
+    Layout = null;
+}
+<h2>Invigilator List</h2>
+<ul>
+    @foreach (var inv in Model)
+    {
+        <li>@inv.Name - @inv.Contact</li>
+    }
+</ul>
